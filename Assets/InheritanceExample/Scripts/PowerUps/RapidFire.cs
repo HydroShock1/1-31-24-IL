@@ -19,6 +19,8 @@ public class RapidFire : PowerUpBase
             originalCooldown = turretController.FireCooldown;
 
             turretController.FireCooldown /= 2f;
+
+            Debug.Log("POWER UP OBTAINED!!");
         }
     }
 
