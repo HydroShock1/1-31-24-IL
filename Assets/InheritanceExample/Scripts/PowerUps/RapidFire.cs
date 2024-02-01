@@ -2,17 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RapidFire : MonoBehaviour
+public class RapidFire : PowerUpBase
 {
-    // Start is called before the first frame update
-    void Start()
+    private TurretController turretController;
+    private float originalCooldown;
+
+    private void Start()
     {
-        
+        turretController = FindObjectOfType<TurretController>();
     }
 
-    // Update is called once per frame
-    void Update()
+    protected override void PowerUp()
     {
-        
+        if (turretController != null)
+        {
+            originalCooldown = turretController.FireCooldown;
+
+            turretController.FireCooldown /= 2f;
+        }
+    }
+
+    protected override void PowerDown()
+    {
+        if (turretController != null)
+        {
+            turretController.FireCooldown = originalCooldown;
+        }
     }
 }

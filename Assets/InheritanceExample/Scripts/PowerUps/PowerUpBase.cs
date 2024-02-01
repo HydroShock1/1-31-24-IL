@@ -6,15 +6,22 @@ public abstract class PowerUpBase : MonoBehaviour
 {
     protected float powerupDuration;
 
+    protected abstract void PowerUp();
+    protected abstract void PowerDown();
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Projectile"))
+        {
+            OnHit();
+        }
+    }
     public void OnHit()
     {
         PowerUp();
         Disable();
         Invoke("PowerDown", powerupDuration);
     }
-
-    protected abstract void PowerUp();
-    protected abstract void PowerDown();
 
     private void Disable()
     {
@@ -25,10 +32,5 @@ public abstract class PowerUpBase : MonoBehaviour
         {
             collider.enabled = false;
         }
-    }
-
-    private void OnDestroy()
-    {
-       
     }
 }
